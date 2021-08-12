@@ -1,0 +1,14 @@
+html start tag
+<\w+(\s+\w+?(=(?<quote>['"]).*?\k<quote>)?)*\s*>
+
+html end tag
+</\w+\s*>
+
+html selfclosing tag
+<\w+\s*/>
+
+html attribute
+\w+?(=(?<quote>['"]).*?\k<quote>)
+
+html escape code
+&(\w+|#\d+);
