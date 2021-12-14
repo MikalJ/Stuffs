@@ -1,6 +1,4 @@
-Import-Module posh-git
-Import-Module oh-my-posh
-Set-Theme Paradox
+oh-my-posh --init --shell pwsh --config "C:\src\Stuffs\WindowsTerminal\Mikal.omp.json" | Invoke-Expression
 if ($host.Name -eq 'ConsoleHost')
 {
     Import-Module PSReadLine
