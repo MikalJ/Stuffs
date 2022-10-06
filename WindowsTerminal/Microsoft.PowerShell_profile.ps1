@@ -8,6 +8,10 @@ Import-Module ZLocation
 #Add-Content -Value "`r`n`r`nImport-Module ZLocation`r`n" -Encoding utf8 -Path $PROFILE.CurrentUserAllHosts
 Write-Host -Foreground Green "[ZLocation] knows about $((Get-ZLocation).Keys.Count) locations."
 
+# General aliases
+Function List-EnvironmentVariables { Get-ChildItem env:* | Sort-Object name }
+New-Alias -Force -Name env -Value List-EnvironmentVariables
+
 # Kubectl aliases
 Function KubectlGetPods { kubectl get pods }
 Function KubectlClusterInfo { kubectl cluster-info }
