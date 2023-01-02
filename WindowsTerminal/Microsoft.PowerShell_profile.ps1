@@ -1,7 +1,17 @@
+$versionMinimum = [Version]'7.1.999'
+
 oh-my-posh --init --shell pwsh --config "C:\src\Stuffs\WindowsTerminal\Mikal.omp.json" | Invoke-Expression
 Import-Module -Name Terminal-Icons
 Import-Module PSReadLine
-Set-PSReadLineOption -PredictionSource History
+
+if(($host.Name -eq 'ConsoleHost') -and ($PSVersionTable.PSVersion -ge $versionMinimum))
+{
+    Set-PSReadLineOption -PredictionSource HistoryAndPlugin
+}
+else {
+    Set-PSReadLineOption -PredictionSource History
+}
+
 Set-PSReadLineOption -PredictionViewStyle ListView
 Set-PSReadLineOption -EditMode Windows
 Import-Module ZLocation
