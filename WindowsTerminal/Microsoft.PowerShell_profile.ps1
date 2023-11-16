@@ -23,8 +23,8 @@ Function List-EnvironmentVariables { Get-ChildItem env:* | Sort-Object name }
 New-Alias -Force -Name env -Value List-EnvironmentVariables
 
 # Kubectl aliases
-Function KubectlGetPods { kubectl get pods }
-Function KubectlClusterInfo { kubectl cluster-info }
+Function KubectlGetPods { kubectl get pods $args }
+Function KubectlClusterInfo { kubectl cluster-info $args }
 New-Alias -Force -Name k -Value kubectl
 New-Alias -Force -Name pods -Value KubectlGetPods
 New-Alias -Force -Name ci -Value KubectlClusterInfo
