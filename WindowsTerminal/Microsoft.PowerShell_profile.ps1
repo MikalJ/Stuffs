@@ -29,6 +29,22 @@ New-Alias -Force -Name k -Value kubectl
 New-Alias -Force -Name pods -Value KubectlGetPods
 New-Alias -Force -Name ci -Value KubectlClusterInfo
 
+
+function Sha256 {
+    [CmdletBinding()]
+    param (
+        [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
+        [ValidateNotNullOrEmpty()]
+        [string]$String
+    )
+    process {
+        $byteArray = [System.Text.Encoding]::UTF8.GetBytes($String)
+        $sha256 = [System.Security.Cryptography.SHA256]::Create()
+        $hashBytes = $sha256.ComputeHash($byteArray)
+        $hashString = [BitConverter]::ToString($hashBytes) -replace '-'
+        Write-Output $hashString
+    }
+}
 # Base 64
 function FromB64 {
     [CmdletBinding()]
