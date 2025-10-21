@@ -96,7 +96,10 @@ function FromB64 {
         [string]$Base64String,
         
         [Parameter(Mandatory = $false)]
-        [switch]$AsByteArray
+        [switch]$ToBytes,
+        
+        [Parameter(Mandatory = $false)]
+        [switch]$ToHex
     )
     process {
         $mod = $Base64String.Length % 4
@@ -108,11 +111,12 @@ function FromB64 {
         
         $decodedBytes = [System.Convert]::FromBase64String($Base64String)
         
-        if ($AsByteArray) {
+        if ($ToBytes) {
             Write-Output $decodedBytes -NoEnumerate
+        } elseif ($ToHex) {
+            Write-Output [System.Convert]::ToHexString(@($decodedBytes;))
         } else {
-            $decodedString = [System.Text.Encoding]::UTF8.GetString($decodedBytes)
-            Write-Output $decodedString
+            Write-Output [System.Text.Encoding]::UTF8.GetString($decodedBytes)
         }
     }
 }
