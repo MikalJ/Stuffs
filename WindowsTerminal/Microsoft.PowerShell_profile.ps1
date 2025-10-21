@@ -89,16 +89,16 @@ function FromHex {
 
 # Base 64
 function FromB64 {
-    [CmdletBinding()]
+    [CmdletBinding(DefaultParameterSetName = 'Default')]
     param (
         [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
         [ValidateNotNullOrEmpty()]
         [string]$Base64String,
         
-        [Parameter(Mandatory = $false)]
+        [Parameter(Mandatory = $false, ParameterSetName = 'ToBytes')]
         [switch]$ToBytes,
         
-        [Parameter(Mandatory = $false)]
+        [Parameter(Mandatory = $false, ParameterSetName = 'ToHex')]
         [switch]$ToHex
     )
     process {
@@ -114,9 +114,11 @@ function FromB64 {
         if ($ToBytes) {
             Write-Output $decodedBytes -NoEnumerate
         } elseif ($ToHex) {
-            Write-Output [System.Convert]::ToHexString(@($decodedBytes;))
+            $hexString = [System.Convert]::ToHexString($decodedBytes)
+            Write-Output $hexString
         } else {
-            Write-Output [System.Text.Encoding]::UTF8.GetString($decodedBytes)
+            $utf8string = [System.Text.Encoding]::UTF8.GetString($decodedBytes)
+            Write-Output $utf8string
         }
     }
 }
